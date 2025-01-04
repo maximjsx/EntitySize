@@ -116,8 +116,17 @@ repositories {
 }
 
 dependencies {
-	 implementation 'com.github.max1mde:EntitySize:1.5.4'
+	 compileOnly 'com.github.max1mde:EntitySize:1.5.4'
 }
+```
+Maven
+```xml
+<dependency>
+        <groupId>com.github.max1mde</groupId>
+        <artifactId>EntitySize</artifactId>
+        <version>1.5.4</version>
+        <scope>provided</scope>
+</dependency>
 ```
 
 Add 
