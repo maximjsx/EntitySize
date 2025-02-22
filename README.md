@@ -3,8 +3,6 @@
 <a href="https://jitpack.io/#max1mde/EntitySize"><img src="https://jitpack.io/v/max1mde/EntitySize.svg"></a>
 <a href="https://discord.gg/2UTkYj26B4" target="_blank"><img src="https://img.shields.io/badge/Discord_Server-7289DA?style=flat&logo=discord&logoColor=white" alt="Join Discord Server" style="border-radius: 15px; height: 20px;"></a>
 
-  <p><b>Supported versions: </b>1.20.5, 1.20.6, 1.21.x</p>
-  
   <img src="https://imgur.com/yMuZdvu.gif">
   
 <br>
@@ -118,8 +116,17 @@ repositories {
 }
 
 dependencies {
-	 implementation 'com.github.max1mde:EntitySize:1.5.4'
+	 compileOnly 'com.github.max1mde:EntitySize:1.5.4'
 }
+```
+Maven
+```xml
+<dependency>
+        <groupId>com.github.max1mde</groupId>
+        <artifactId>EntitySize</artifactId>
+        <version>1.5.4</version>
+        <scope>provided</scope>
+</dependency>
 ```
 
 Add 
@@ -134,3 +141,5 @@ modifierService.getEntity(player, range);
 
 # Support
 https://discord.com/invite/4pA7VUeQs4
+
+![image](https://github.com/user-attachments/assets/8d79fd86-77ef-4f5b-a563-58e8448af5d4)
