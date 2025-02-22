@@ -98,15 +98,15 @@ repositories {
 }
 
 dependencies {
-	 compileOnly 'com.github.max1mde:EntitySize:1.5.4'
+	 compileOnly 'com.github.maximjsx:EntitySize:1.6.1'
 }
 ```
 Maven
 ```xml
 <dependency>
-        <groupId>com.github.max1mde</groupId>
+        <groupId>com.github.maximjsx</groupId>
         <artifactId>EntitySize</artifactId>
-        <version>1.5.4</version>
+        <version>1.6.1</version>
         <scope>provided</scope>
 </dependency>
 ```
