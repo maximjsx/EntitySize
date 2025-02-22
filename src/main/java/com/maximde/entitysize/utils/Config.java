@@ -32,9 +32,11 @@ public class Config {
     private double speedMultiplier;
     private double jumpMultiplier;
     private double saveFallDistanceMultiplier;
+    private String language;
 
     public Config() {
         setDefault("General.bStats", true);
+        setDefault("General.language", "en_us");
         setDefault("Size.Transition", true);
         setDefault("Size.TransitionSteps", 30);
         setDefault("Size.IsReachMultiplier", true);
@@ -80,6 +82,7 @@ public class Config {
         this.saveFallDistanceMultiplier = cfg.getDouble("Size.SaveFallDistanceMultiplier");
 
         this.transitionSteps = cfg.getInt("Size.TransitionSteps");
+        this.language = cfg.getString("General.language");
     }
 
     public void reload() {

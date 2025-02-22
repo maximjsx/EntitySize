@@ -1,0 +1,32 @@
+messages:
+  plugin_info: "EntitySize 由 MaximDe v%version% 提供"
+  no_permission: "你没有权限执行此命令！"
+  player_only: "该命令只能由玩家使用！"
+  invalid_format: "无效的数字格式！"
+  error_changing_size: "更改大小时发生错误。"
+  size_updated: "你的大小已更新为 %size%！"
+  usage:
+    add: "用法：/entitysize add "
+  player:
+    not_found: "未找到名称为 %player% 的玩家！"
+    size_changed: "成功更改 %player% 的大小！"
+    size_changed_time: "成功更改 %player% 的大小（将在 %time% 分钟后重置）！"
+    all_changed: "成功更改 %count% 名玩家的大小！"
+    all_changed_time: "成功更改 %count% 名玩家的大小！（将在 %time% 分钟后重置）"
+  entity:
+    no_entity: "未找到实体！"
+    looking_changed: "正在更改你面前实体的大小！（%size%）"
+    tag_changed: "正在更改所有带有记分板标签 %tag% 的实体的大小！"
+    name_changed: "正在更改所有名称（实体类型）为 %name% 的实体的大小！"
+    uuid_changed: "正在更改所有 UUID 为 %uuid% 的实体的大小！"
+    range_changed: "正在更改 %range% 格范围内所有实体的大小！"
+  size:
+    limited_min: "大小已限制为最小值：%size%"
+    limited_max: "大小已限制为最大值：%size%"
+    reset: "大小已重置！"
+    reset_player: "已重置 %player% 的大小！"
+    reset_all: "已重置 %count% 名玩家的大小！"
+    reset_scheduled: "将在 %time% 分钟后重置所有受影响玩家（%count%）的大小！"
+  config:
+    reloaded: "配置已重新加载！"
+  help_message: "/entitysize reload （重新加载配置）\n/entitysize add  （增加或减少当前大小）\n/entitysize reset  （重置大小为默认值）\n/entitysize  [时间] （更改自身大小）\n/entitysize player   [时间]\n/entitysize entity looking  [时间] （更改你正在查看的实体的大小）\n/entitysize entity tag   [时间] （更改所有带有特定记分板标签的实体的大小）\n/entitysize entity name   [时间] （更改所有具有特定名称的实体的大小）\n/entitysize entity uuid   [时间] （更改指定 UUID 的实体的大小）\n/entitysize entity range   [时间] （更改特定范围内的所有实体的大小）"

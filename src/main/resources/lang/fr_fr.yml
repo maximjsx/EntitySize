@@ -1,0 +1,32 @@
+messages:
+  plugin_info: "EntitySize par MaximDe v%version%"
+  no_permission: "Vous n'avez pas la permission d'exécuter cette commande !"
+  player_only: "Cette commande ne peut être utilisée que par des joueurs !"
+  invalid_format: "Format de nombre invalide !"
+  error_changing_size: "Une erreur s'est produite lors du changement de taille."
+  size_updated: "Votre taille a été mise à jour à %size% !"
+  usage:
+    add: "Utilisation : /entitysize add "
+  player:
+    not_found: "Joueur avec le nom %player% introuvable !"
+    size_changed: "Taille de %player% modifiée avec succès !"
+    size_changed_time: "Taille de %player% modifiée avec succès (Réinitialisation dans %time% minute/s)"
+    all_changed: "Taille de %count% joueur(s) modifiée avec succès !"
+    all_changed_time: "Taille de %count% joueur(s) modifiée avec succès ! (Réinitialisation dans %time% minute/s)"
+  entity:
+    no_entity: "Aucune entité trouvée !"
+    looking_changed: "Modification de la taille de l'entité devant vous ! (%size%)"
+    tag_changed: "Modification de la taille de toutes les entités avec le tag scoreboard : %tag% !"
+    name_changed: "Modification de la taille de toutes les entités avec le nom (Type d'entité) : %name% !"
+    uuid_changed: "Modification de la taille de toutes les entités avec l'UUID : %uuid% !"
+    range_changed: "Modification de la taille de toutes les entités dans un rayon de : %range% blocs !"
+  size:
+    limited_min: "Taille limitée au minimum : %size%"
+    limited_max: "Taille limitée au maximum : %size%"
+    reset: "Taille réinitialisée !"
+    reset_player: "Taille réinitialisée pour %player%"
+    reset_all: "Taille réinitialisée pour %count% joueurs !"
+    reset_scheduled: "Réinitialisation de la taille de tous les joueurs affectés (%count%) dans %time% minute(s) !"
+  config:
+    reloaded: "Configuration rechargée !"
+  help_message: "/entitysize reload (Recharger la configuration)\n/entitysize add  (Ajouter ou soustraire de votre taille actuelle)\n/entitysize reset  (Réinitialiser la taille par défaut)\n/entitysize  [temps] (Modifier votre propre taille)\n/entitysize player   [temps]\n/entitysize entity looking  [temps] (L'entité que vous regardez)\n/entitysize entity tag   [temps] (Toutes les entités avec un tag spécifique du scoreboard)\n/entitysize entity name   [temps] (Toutes les entités avec un nom spécifique)\n/entitysize entity uuid   [temps] (Entité avec cet UUID)\n/entitysize entity range   [temps] (Entités dans un rayon spécifique de votre position)"

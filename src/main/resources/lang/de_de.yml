@@ -1,0 +1,32 @@
+messages:
+  plugin_info: "EntitySize von MaximDe v%version%"
+  no_permission: "Du hast keine Berechtigung, diesen Befehl auszuführen!"
+  player_only: "Dieser Befehl kann nur von Spielern verwendet werden!"
+  invalid_format: "Ungültiges Zahlenformat!"
+  error_changing_size: "Beim Ändern der Größe ist ein Fehler aufgetreten."
+  size_updated: "Deine Größe wurde auf %size% aktualisiert!"
+  usage:
+    add: "Verwendung: /entitysize add "
+  player:
+    not_found: "Spieler mit dem Namen %player% nicht gefunden!"
+    size_changed: "Größe von %player% erfolgreich geändert!"
+    size_changed_time: "Größe von %player% erfolgreich geändert (Rücksetzung in %time% Minute/n)"
+    all_changed: "Größe von %count% Spieler(n) erfolgreich geändert!"
+    all_changed_time: "Größe von %count% Spieler(n) erfolgreich geändert! (Rücksetzung in %time% Minute/n)"
+  entity:
+    no_entity: "Keine Entität gefunden!"
+    looking_changed: "Größe der Entität vor dir wird geändert! (%size%)"
+    tag_changed: "Größe aller Entitäten mit dem Scoreboard-Tag %tag% wird geändert!"
+    name_changed: "Größe aller Entitäten mit dem Namen (Entitätstyp) %name% wird geändert!"
+    uuid_changed: "Größe aller Entitäten mit der UUID %uuid% wird geändert!"
+    range_changed: "Größe aller Entitäten im Umkreis von %range% Blöcken wird geändert!"
+  size:
+    limited_min: "Größe wurde auf das Minimum begrenzt: %size%"
+    limited_max: "Größe wurde auf das Maximum begrenzt: %size%"
+    reset: "Größe zurückgesetzt!"
+    reset_player: "Größe von %player% zurückgesetzt!"
+    reset_all: "Größe von %count% Spielern zurückgesetzt!"
+    reset_scheduled: "Rücksetzung der Größe aller betroffenen Spieler (%count%) in %time% Minute(n)!"
+  config:
+    reloaded: "Konfiguration neu geladen!"
+  help_message: "/entitysize reload (Konfiguration neu laden)\n/entitysize add  (Zu deiner aktuellen Größe addieren oder subtrahieren)\n/entitysize reset  (Größe auf Standard zurücksetzen)\n/entitysize  [Zeit] (Eigene Größe ändern)\n/entitysize player   [Zeit]\n/entitysize entity looking  [Zeit] (Die Entität, die du ansiehst)\n/entitysize entity tag   [Zeit] (Alle Entitäten mit einem bestimmten Scoreboard-Tag)\n/entitysize entity name   [Zeit] (Alle Entitäten mit einem bestimmten Namen)\n/entitysize entity uuid   [Zeit] (Entität mit dieser UUID)\n/entitysize entity range   [Zeit] (Entitäten in einem bestimmten Radius von deiner Position)"

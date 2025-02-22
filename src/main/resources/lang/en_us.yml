@@ -1,0 +1,32 @@
+messages:
+  plugin_info: "EntitySize by MaximDe v%version%"
+  no_permission: "You don't have the permission to execute this command!"
+  player_only: "This command can only be used by players!"
+  invalid_format: "Invalid number format!"
+  error_changing_size: "An error occurred while changing the size."
+  size_updated: "Your size has been updated to %size%!"
+  usage:
+    add: "Usage: /entitysize add <size>"
+  player:
+    not_found: "Player with the name %player% not found!"
+    size_changed: "Successfully changed the size of %player%"
+    size_changed_time: "Successfully changed the size of %player% (Resetting in %time% minute/s)"
+    all_changed: "Successfully changed the size of %count% player/s!"
+    all_changed_time: "Successfully changed the size of %count% player/s! (Resetting in %time% minute/s)"
+  entity:
+    no_entity: "No entity found!"
+    looking_changed: "Changing the size of the entity in front of you! (%size%)"
+    tag_changed: "Changing the size of all entities with the scoreboard tag: %tag%!"
+    name_changed: "Changing the size of all entities with the name (Entity Type): %name%!"
+    uuid_changed: "Changing the size of all entities with the uuid: %uuid%!"
+    range_changed: "Changing the size of all entities which are within the range of: %range% blocks!"
+  size:
+    limited_min: "Size was limited to minimum: %size%"
+    limited_max: "Size was limited to maximum: %size%"
+    reset: "Size reset!"
+    reset_player: "Size reset for %player%"
+    reset_all: "Size reset for %count% players!"
+    reset_scheduled: "Resetting the size of all players from %count% affected entities in %time% minute/s!"
+  config:
+    reloaded: "Config reloaded!"
+  help_message: "/entitysize reload (Reload config)\n/entitysize add <size> (Add or subtract from your current size)\n/entitysize reset <optional player / @a> (Reset size to default)\n/entitysize <size> [time] (Change your own size)\n/entitysize player <player> <size> [time]\n/entitysize entity looking <size> [time] (The entity you are looking at)\n/entitysize entity tag <tag> <size> [time] (All entities with a specific scoreboard tag)\n/entitysize entity name <name> <size> [time] (All entities with a specific name)\n/entitysize entity uuid <uuid> <size> [time] (Entity with that uuid)\n/entitysize entity range <blocks> <size> [time] (Entities in a specific range from your location)"

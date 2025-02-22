@@ -33,7 +33,8 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!hasPermission(sender, entitySize.getPermission("commands"))) {
-            sender.sendMessage(entitySize.getPrimaryColor() + "EntitySize by MaximDe v" + entitySize.getDescription().getVersion());
+            sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.plugin_info")
+                    .replace("%version%", entitySize.getDescription().getVersion()));
             return false;
         }
         if(args.length < 1) return sendCommands(sender);
@@ -41,15 +42,15 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
         switch (args[0].toLowerCase()) {
             case "add" -> {
                 if (!hasPermission(sender, entitySize.getPermission("add"))) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this subcommand!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                     return false;
                 }
                 if (!(sender instanceof Player player)) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "This command can only be used by players!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player_only"));
                     return false;
                 }
                 if (args.length < 2) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "Usage: /entitysize add <size>");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.usage.add"));
                     return false;
                 }
                 try {
@@ -58,14 +59,15 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                     double newSize = currentSize + deltaSize;
 
                     setSize(sender, player, newSize, -1);
-                    sender.sendMessage(entitySize.getPrimaryColor() + "Your size has been updated to " + newSize + "!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.size_updated")
+                            .replace("%size%", String.valueOf(newSize)));
                 } catch (NumberFormatException e) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "Invalid number format!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.invalid_format"));
                 }
             }
         case "player" -> {
                 if(!hasPermission(sender, entitySize.getPermission("player"))) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this subcommand!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                     return false;
                 }
                 if(args.length < 3) return sendCommands(sender);
@@ -80,19 +82,21 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                             setSize(sender, player, size, time);
                         }
 
-                        sender.sendMessage(entitySize.getPrimaryColor() + "Successfully changed the size of " + Bukkit.getOnlinePlayers().size() + " player/s!"
-                                + (time > 0 ? " (Resetting in " + time + " minute/s)" : ""));
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player.all_changed_time")
+                                .replace("%count%", String.valueOf(Bukkit.getOnlinePlayers().size()))
+                                .replace("%time%", String.valueOf(time)));
                     } catch (NumberFormatException e) {
-                        sender.sendMessage(entitySize.getPrimaryColor() + "Invalid number format!");
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.invalid_format"));
                         e.printStackTrace();
                     } catch (Exception e) {
-                        sender.sendMessage(entitySize.getPrimaryColor() + "An error occurred while changing the size.");
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.error_changing_size"));
                         e.printStackTrace();
                     }
                 } else {
                     Player target = Bukkit.getPlayer(args[1]);
                     if(target == null || !target.isOnline()) {
-                        sender.sendMessage(entitySize.getPrimaryColor() + "Player with the name " + args[1] + " not found!");
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player.not_found")
+                                .replace("%player%", args[1]));
                         return false;
                     }
 
@@ -103,13 +107,14 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                             time = Integer.parseInt(args[3]);
                         }
                         setSize(sender, target, size, time);
-                        sender.sendMessage(entitySize.getPrimaryColor() + "Successfully changed the size of " + target.getName()
-                                + (time > 0 ? " (Resetting in " + time + " minute/s)" : ""));
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player.all_changed_time")
+                                .replace("%count%", String.valueOf(Bukkit.getOnlinePlayers().size()))
+                                .replace("%time%", String.valueOf(time)));
                     } catch (NumberFormatException e) {
-                        sender.sendMessage(entitySize.getPrimaryColor() + "Invalid number format!");
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.invalid_format"));
                         e.printStackTrace();
                     } catch (Exception e) {
-                        sender.sendMessage(entitySize.getPrimaryColor() + "An error occurred while changing the size.");
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.error_changing_size"));
                         e.printStackTrace();
                     }
                 }
@@ -118,7 +123,7 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
 
             case "entity" -> {
                 if(!hasPermission(sender, entitySize.getPermission("entity"))) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                     return false;
                 }
                 if(args.length < 2) return sendCommands(sender);
@@ -128,45 +133,49 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
 
             case "reload" -> {
                 if(!hasPermission(sender, entitySize.getPermission("reload"))) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                     return false;
                 }
                 entitySize.getConfiguration().reload();
-                sender.sendMessage(entitySize.getPrimaryColor() + "Config reloaded!");
+                entitySize.getLanguage().reload();
+                sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.config.reloaded"));
             }
 
             case "reset" -> {
                 if(!hasPermission(sender, entitySize.getPermission("reset"))) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                     return false;
                 }
                 if(args.length == 1) {
                     entitySize.getConfiguration().reload();
                     entitySize.resetSize((Player)sender);
-                    sender.sendMessage(entitySize.getPrimaryColor() + "Size reset!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.size.reset"));
                     return false;
                 } else if (args.length == 2) {
                     if(args[1].equalsIgnoreCase("@a")) {
                         if(!hasPermission(sender, entitySize.getPermission("reset.all"))) {
-                            sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                            sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                             return false;
                         }
                         Bukkit.getOnlinePlayers().forEach(entitySize::resetSize);
-                        sender.sendMessage(entitySize.getPrimaryColor() + "Size reset for " + Bukkit.getOnlinePlayers().size()+" players!");
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.size.reset_all")
+                                .replace("%count%", String.valueOf(Bukkit.getOnlinePlayers().size())));
                         return true;
                     }
                     if(!hasPermission(sender, entitySize.getPermission("reset.player"))) {
-                        sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                         return false;
                     }
 
                     Player target = Bukkit.getPlayer(args[1]);
                     if(target == null || !target.isOnline()) {
-                        sender.sendMessage(entitySize.getPrimaryColor() + "Player with the name " + args[1] + " not found!");
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player.not_found")
+                                .replace("%player%", args[1]));
                         return false;
                     }
                     entitySize.resetSize(target);
-                    sender.sendMessage(entitySize.getPrimaryColor() + "Size reset for " + target.getName());
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.size.reset_player")
+                            .replace("%player%", target.getName()));
                     return true;
                 }
                 sendCommands(sender);
@@ -176,7 +185,7 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
             default -> {
                 try {
                     if(!hasPermission(sender, entitySize.getPermission("self"))) {
-                        sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                         return false;
                     }
                     double size = Double.parseDouble(args[0]);
@@ -186,8 +195,10 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                     }
                     Player player = (Player) sender;
                     setSize(sender, player, size, time);
-                    sender.sendMessage(entitySize.getPrimaryColor() + "Successfully changed the size of " + player.getName()
-                            + (time > 0 ? " (Resetting in " + time + " minute/s)" : ""));
+
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player.size_changed_time")
+                            .replace("%player%", player.getName())
+                            .replace("%time%", String.valueOf(time)));
                 } catch (Exception exception) {
                     sendCommands(sender);
                 }
@@ -206,7 +217,7 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
         switch (args[1].toLowerCase()) {
             case "looking" -> {
                 if(!hasPermission(sender, entitySize.getPermission("entity.looking"))) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                     return false;
                 }
 
@@ -217,24 +228,25 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                 }
 
                 if(!(sender instanceof Player player)) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You can only execute this command as a player!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player_only"));
                     return false;
                 }
 
                 Optional<LivingEntity> optionalEntity = entitySize.getEntity(player, 30);
 
                 if(optionalEntity.isEmpty()) {
-                    player.sendMessage(entitySize.getPrimaryColor() + "No entity found!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.entity.no_entity"));
                     return false;
                 }
-                sender.sendMessage(entitySize.getPrimaryColor() + "Changing the size of the entity in front of you! (" + size + ")");
+                sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.entity.looking_changed")
+                        .replace("%size%", String.valueOf(size)));
                 handleEntities(entity -> optionalEntity.get() == entity, size, time, sender);
 
                 return true;
             }
             case "tag" -> {
                 if(!hasPermission(sender, entitySize.getPermission("entity.tag"))) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                     return false;
                 }
                 if (args.length < 4) {
@@ -247,14 +259,15 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                 if (args.length >= 5) {
                     time = Integer.parseInt(args[4]);
                 }
-                sender.sendMessage(entitySize.getPrimaryColor() + "Changing the size of all entities with the scoreboard tag: "+tag+"!");
+                sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.entity.tag_changed")
+                        .replace("%tag%", tag));
                 handleEntities(entity -> entity.getScoreboardTags().contains(tag), size, time, sender);
 
                 return true;
             }
             case "name" -> {
                 if(!hasPermission(sender, entitySize.getPermission("entity.name"))) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                     return false;
                 }
                 if (args.length < 4) {
@@ -267,14 +280,15 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                 if (args.length >= 5) {
                     time = Integer.parseInt(args[4]);
                 }
-                sender.sendMessage(entitySize.getPrimaryColor() + "Changing the size of all entities with the name (Entity Type): "+name+"!");
+                sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.entity.name_changed")
+                        .replace("%name%", name));
                 handleEntities(entity -> (entity.getType().name().equalsIgnoreCase(name)), size, time, sender);
 
                 return true;
             }
             case "uuid" -> {
                 if(!hasPermission(sender, entitySize.getPermission("entity.uuid"))) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                     return false;
                 }
                 if (args.length < 4) {
@@ -287,13 +301,14 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                 if (args.length >= 5) {
                     time = Integer.parseInt(args[4]);
                 }
-                sender.sendMessage(entitySize.getPrimaryColor() + "Changing the size of all entities with the uuid: "+uuid+"!");
+                sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.entity.uuid_changed")
+                        .replace("%uuid%", String.valueOf(uuid)));
                 handleEntities(entity -> entity.getUniqueId().equals(uuid), size, time, sender);
                 return true;
             }
             case "range" -> {
                 if(!hasPermission(sender, entitySize.getPermission("entity.range"))) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You don't have the permission to execute this command!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.no_permission"));
                     return false;
                 }
                 if (args.length < 4) {
@@ -301,7 +316,7 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                     return false;
                 }
                 if(!(sender instanceof Player player)) {
-                    sender.sendMessage(entitySize.getPrimaryColor() + "You can only execute this command as a player!");
+                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player_only"));
                     return false;
                 }
 
@@ -311,7 +326,8 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                 if (args.length >= 5) {
                     time = Integer.parseInt(args[4]);
                 }
-                sender.sendMessage(entitySize.getPrimaryColor() + "Changing the size of all entities which are within the range of: "+range+" blocks!");
+                sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.entity.range_changed")
+                        .replace("%range%", String.valueOf(range)));
                 handleEntities(entity -> isWithinRange(entity, player, range), size, time, sender);
                 return true;
             }
@@ -337,7 +353,9 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
         }
         if (time > 0) {
             scheduleReset(affectedEntities, time);
-            sender.sendMessage(this.entitySize.getPrimaryColor() + "Resetting the size of all players from " + affectedEntities.size() + " affected entities in " + time + " minute/s!");
+            sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.size.reset_scheduled")
+                    .replace("%count%", String.valueOf(affectedEntities.size()))
+                    .replace("%time%", String.valueOf(time)));
         }
     }
 
@@ -368,11 +386,13 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
 
             if (size < minSize) {
                 size = minSize;
-                sender.sendMessage(entitySize.getPrimaryColor() + "Size was limited to minimum: " + minSize);
+                sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.size.limited_min")
+                        .replace("%size%", String.valueOf(minSize)));
             }
             if (size > maxSize) {
                 size = maxSize;
-                sender.sendMessage(entitySize.getPrimaryColor() + "Size was limited to maximum: " + maxSize);
+                sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.size.limited_max")
+                        .replace("%size%", String.valueOf(maxSize)));
             }
         }
 
@@ -399,17 +419,7 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
     }
 
     private boolean sendCommands(CommandSender sender) {
-        sender.sendMessage(entitySize.getPrimaryColor() +
-                "/entitysize reload (Reload config)\n" +
-                "/entitysize add <size> (Add or subtract from your current size)\n" +
-                "/entitysize reset <optional player / @a> (Reset size to default)\n" +
-                "/entitysize <size> [time] (Change your own size)\n" +
-                "/entitysize player <player> <size> [time]\n" +
-                "/entitysize entity looking <size> [time] (The entity you are looking at)\n" +
-                "/entitysize entity tag <tag> <size> [time] (All entities with a specific scoreboard tag)\n" +
-                "/entitysize entity name <name> <size> [time] (All entities with a specific name)\n" +
-                "/entitysize entity uuid <uuid> <size> [time] (Entity with that uuid)\n" +
-                "/entitysize entity range <blocks> <size> [time] (Entities in a specific range from your location)\n");
+        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.help_message"));
         return false;
     }
 

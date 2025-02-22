@@ -1,0 +1,32 @@
+messages:
+  plugin_info: "EntitySize por MaximDe v%version%"
+  no_permission: "¡No tienes permiso para ejecutar este comando!"
+  player_only: "¡Este comando solo puede ser usado por jugadores!"
+  invalid_format: "¡Formato de número inválido!"
+  error_changing_size: "Ocurrió un error al cambiar el tamaño."
+  size_updated: "¡Tu tamaño ha sido actualizado a %size%!"
+  usage:
+    add: "Uso: /entitysize add "
+  player:
+    not_found: "¡Jugador con el nombre %player% no encontrado!"
+    size_changed: "¡Tamaño de %player% cambiado con éxito!"
+    size_changed_time: "¡Tamaño de %player% cambiado con éxito (Se restablecerá en %time% minuto/s)!"
+    all_changed: "¡Tamaño de %count% jugador(es) cambiado con éxito!"
+    all_changed_time: "¡Tamaño de %count% jugador(es) cambiado con éxito! (Se restablecerá en %time% minuto/s)"
+  entity:
+    no_entity: "¡No se encontró ninguna entidad!"
+    looking_changed: "¡Cambiando el tamaño de la entidad frente a ti! (%size%)"
+    tag_changed: "¡Cambiando el tamaño de todas las entidades con la etiqueta de scoreboard: %tag%!"
+    name_changed: "¡Cambiando el tamaño de todas las entidades con el nombre (Tipo de entidad): %name%!"
+    uuid_changed: "¡Cambiando el tamaño de todas las entidades con el UUID: %uuid%!"
+    range_changed: "¡Cambiando el tamaño de todas las entidades dentro del rango de: %range% bloques!"
+  size:
+    limited_min: "Tamaño limitado al mínimo: %size%"
+    limited_max: "Tamaño limitado al máximo: %size%"
+    reset: "¡Tamaño restablecido!"
+    reset_player: "¡Tamaño restablecido para %player%!"
+    reset_all: "¡Tamaño restablecido para %count% jugadores!"
+    reset_scheduled: "¡Restableciendo el tamaño de todos los jugadores afectados (%count%) en %time% minuto/s!"
+  config:
+    reloaded: "¡Configuración recargada!"
+  help_message: "/entitysize reload (Recargar configuración)\n/entitysize add  (Agregar o restar de tu tamaño actual)\n/entitysize reset  (Restablecer tamaño por defecto)\n/entitysize  [tiempo] (Cambiar tu propio tamaño)\n/entitysize player   [tiempo]\n/entitysize entity looking  [tiempo] (La entidad que estás mirando)\n/entitysize entity tag   [tiempo] (Todas las entidades con una etiqueta específica del scoreboard)\n/entitysize entity name   [tiempo] (Todas las entidades con un nombre específico)\n/entitysize entity uuid   [tiempo] (Entidad con ese UUID)\n/entitysize entity range   [tiempo] (Enti

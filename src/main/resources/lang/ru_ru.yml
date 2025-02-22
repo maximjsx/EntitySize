@@ -1,0 +1,32 @@
+messages:
+  plugin_info: "EntitySize от MaximDe v%version%"
+  no_permission: "У вас нет прав на выполнение этой команды!"
+  player_only: "Эту команду могут использовать только игроки!"
+  invalid_format: "Неверный числовой формат!"
+  error_changing_size: "Произошла ошибка при изменении размера."
+  size_updated: "Ваш размер был обновлён до %size%!"
+  usage:
+    add: "Использование: /entitysize add "
+  player:
+    not_found: "Игрок с именем %player% не найден!"
+    size_changed: "Размер игрока %player% успешно изменён!"
+    size_changed_time: "Размер игрока %player% успешно изменён (Сброс через %time% мин.)"
+    all_changed: "Размер %count% игрок(ов) успешно изменён!"
+    all_changed_time: "Размер %count% игрок(ов) успешно изменён! (Сброс через %time% мин.)"
+  entity:
+    no_entity: "Сущность не найдена!"
+    looking_changed: "Изменение размера сущности перед вами! (%size%)"
+    tag_changed: "Изменение размера всех сущностей с тегом: %tag%!"
+    name_changed: "Изменение размера всех сущностей с именем (Тип сущности): %name%!"
+    uuid_changed: "Изменение размера всех сущностей с UUID: %uuid%!"
+    range_changed: "Изменение размера всех сущностей в радиусе %range% блоков!"
+  size:
+    limited_min: "Размер ограничен минимальным значением: %size%"
+    limited_max: "Размер ограничен максимальным значением: %size%"
+    reset: "Размер сброшен!"
+    reset_player: "Размер игрока %player% сброшен!"
+    reset_all: "Размер %count% игроков сброшен!"
+    reset_scheduled: "Сброс размера всех затронутых игроков (%count%) через %time% мин.!"
+  config:
+    reloaded: "Конфигурация перезагружена!"
+  help_message: "/entitysize reload (Перезагрузить конфигурацию)\n/entitysize add  (Добавить или вычесть из текущего размера)\n/entitysize reset  (Сбросить размер по умолчанию)\n/entitysize  [время] (Изменить свой размер)\n/entitysize player   [время]\n/entitysize entity looking  [время] (Сущность, на которую вы смотрите)\n/entitysize entity tag   [время] (Все сущности с определённым тегом)\n/entitysize entity name   [время] (Все сущности с определённым именем)\n/entitysize entity uuid   [время] (Сущность с указанным UUID)\n/entitysize entity range   [время] (Сущности в определённом радиусе от вашей позиции)"

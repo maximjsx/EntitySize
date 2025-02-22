@@ -3,6 +3,7 @@ package com.maximde.entitysize;
 import com.maximde.entitysize.commands.EntitySizeCommand;
 
 import com.maximde.entitysize.utils.Config;
+import com.maximde.entitysize.utils.Language;
 import com.maximde.entitysize.utils.Metrics;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
@@ -26,6 +27,8 @@ public final class EntitySize extends JavaPlugin implements Listener {
     private final ChatColor primaryColor = ChatColor.of(new Color(255, 157, 88));
     private final Map<UUID, Boolean> pendingResets = new HashMap<>();
     private static final String PENDING_RESETS_PATH = "PendingResets";
+    @Getter
+    private Language language;
 
     public static Optional<EntityModifierService> getSizeService() {
         if (modifierService == null) {
@@ -38,6 +41,7 @@ public final class EntitySize extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         this.configuration = new Config();
+        this.language = new Language(this);
         modifierService = new EntityModifierService(this);
 
         if(configuration.isBStats()) {
