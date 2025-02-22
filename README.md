@@ -47,6 +47,7 @@ This plugin overrides the vanilla player attributes!
 ```yml
 General:
   bStats: true
+  language: en_us
 Size:
   Transition: true
   TransitionSteps: 30
@@ -55,56 +56,37 @@ Size:
   IsSpeedMultiplier: true
   IsJumpMultiplier: true
   IsSaveFallDistanceMultiplier: true
+  IsReachReverted: false
+  IsStepHeightReverted: false
+  IsSpeedReverted: false
+  IsJumpReverted: false
+  IsSaveFallDistanceReverted: false
   ReachMultiplier: 1
   StepHeightMultiplier: 1
   SpeedMultiplier: 1
   JumpMultiplier: 1
   SaveFallDistanceMultiplier: 1
-PendingResets: {}
 ```
 
 # Permissions
 ```
-permissions:
-  entitysize.commands:
-    description: Allows the use of the entitysize command
-    default: true
-  entitysize.player:
-    description: Allows the use of the player subcommand
-    default: false
-  entitysize.entity:
-    description: Allows the use of the entity subcommand
-    default: false
-  entitysize.reload:
-    description: Allows the use of the reload subcommand
-    default: false
-  entitysize.reset:
-    description: Allows the use of the reset subcommand
-    default: true
-  entitysize.reset.player:
-    description: Allows the ability to reset any player
-    default: false
-  entitysize.reset.all:
-    description: Allows the ability to reset all players, using @a
-    default: false
-  entitysize.self:
-    description: Allows the use of the self subcommand
-    default: true
-  entitysize.entity.looking:
-    description: Allows selecting the entity being looked at
-    default: false
-  entitysize.entity.tag:
-    description: Allows selecting the entity by tag
-    default: false
-  entitysize.entity.name:
-    description: Allows selecting the entity by name
-    default: false
-  entitysize.entity.uuid:
-    description: Allows selecting the entity by uuid
-    default: false
-  entitysize.entity.range:
-    description: Allows selecting the entity by range
-    default: false
+EntitySize.sizelimit.max.<number>
+EntitySize.sizelimit.min.<number>
+EntitySize.self (Change own size)
+
+entitysize.commands (Allows the use of the entitysize command)
+entitysize.player (Allows the use of the player subcommand)
+entitysize.entity (Allows the use of the entity subcommand)
+entitysize.reload (Allows the use of the reload subcommand)
+entitysize.reset (Allows the use of the reset subcommand)
+entitysize.reset.player (Allows the ability to reset any player)
+entitysize.reset.all (Allows the ability to reset all players, using @a)
+entitysize.self (Allows the use of the self subcommand)
+entitysize.entity.looking (Allows selecting the entity being looked at)
+entitysize.entity.tag (Allows selecting the entity by tag)
+entitysize.entity.name (Allows selecting the entity by name)
+entitysize.entity.uuid (Allows selecting the entity by uuid)
+entitysize.entity.range (Allows selecting the entity by range)
 ```
 
 # API
@@ -116,15 +98,15 @@ repositories {
 }
 
 dependencies {
-	 compileOnly 'com.github.max1mde:EntitySize:1.5.4'
+	 compileOnly 'com.github.maximjsx:EntitySize:1.6.1'
 }
 ```
 Maven
 ```xml
 <dependency>
-        <groupId>com.github.max1mde</groupId>
+        <groupId>com.github.maximjsx</groupId>
         <artifactId>EntitySize</artifactId>
-        <version>1.5.4</version>
+        <version>1.6.1</version>
         <scope>provided</scope>
 </dependency>
 ```
