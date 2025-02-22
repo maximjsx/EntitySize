@@ -196,9 +196,14 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
                     Player player = (Player) sender;
                     setSize(sender, player, size, time);
 
-                    sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player.size_changed_time")
-                            .replace("%player%", player.getName())
-                            .replace("%time%", String.valueOf(time)));
+                    if(time == -1) {
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player.size_changed")
+                                .replace("%player%", player.getName()));
+                    } else {
+                        sender.sendMessage(entitySize.getPrimaryColor() + entitySize.getLanguage().getMessage("messages.player.size_changed_time")
+                                .replace("%player%", player.getName())
+                                .replace("%time%", String.valueOf(time)));
+                    }
                 } catch (Exception exception) {
                     sendCommands(sender);
                 }
