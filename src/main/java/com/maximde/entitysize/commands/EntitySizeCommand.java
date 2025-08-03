@@ -365,27 +365,44 @@ public class EntitySizeCommand implements CommandExecutor, TabCompleter {
     }
 
     private void setSize(CommandSender sender, LivingEntity entity, double size, int time) {
-        if (!hasPermission(sender, "entitysize.sizelimit.bypass")) {
-            double minSize = 0.1;
-            double maxSize = 10.0;
+        double minSize = 0.1;
+        double maxSize = 10.0;
 
+        if (!hasPermission(sender, "entitysize.sizelimit.bypass")) {
             if (sender instanceof Player player) {
+                double lowestMin = -1;
+                double highestMax = -1;
+
                 for (PermissionAttachmentInfo perm : player.getEffectivePermissions()) {
                     String permission = perm.getPermission();
                     if (perm.getValue()) {
                         if (permission.startsWith("entitysize.sizelimit.min.")) {
                             try {
                                 String sizeStr = permission.substring("entitysize.sizelimit.min.".length());
-                                minSize = Double.parseDouble(sizeStr);
+                                double permMinSize = Double.parseDouble(sizeStr);
+                                if (lowestMin < 0 || permMinSize < lowestMin) {
+                                    lowestMin = permMinSize;
+                                }
                             } catch (NumberFormatException ignored) {}
                         }
                         else if (permission.startsWith("entitysize.sizelimit.max.")) {
                             try {
                                 String sizeStr = permission.substring("entitysize.sizelimit.max.".length());
-                                maxSize = Double.parseDouble(sizeStr);
+                                double permMaxSize = Double.parseDouble(sizeStr);
+
+                                if (highestMax < 0 || permMaxSize > highestMax) {
+                                    highestMax = permMaxSize;
+                                }
                             } catch (NumberFormatException ignored) {}
                         }
                     }
+                }
+
+                if (lowestMin >= 0) {
+                    minSize = lowestMin;
+                }
+                if (highestMax >= 0) {
+                    maxSize = highestMax;
                 }
             }
 
