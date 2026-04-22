@@ -54,3 +54,15 @@ processResources {
         expand props
     }
 }
+
+shadowJar {
+    archiveClassifier.set('')
+    relocate 'com.tcoded.folialib', 'com.maximde.entitysize.libs.folialib'
+}
+
+jar {
+    enabled = false
+    dependsOn shadowJar
+}
+
+build.dependsOn shadowJar
