@@ -139,10 +139,6 @@ public class EntityModifierService {
         ).forEach(modifier -> modifier.reset(player)));
     }
 
-    // Returns a future because on Folia every call below — getEyeLocation, getNearbyEntities,
-    // hasLineOfSight, each candidate's getLocation — goes through CraftEntity.getHandle() and
-    // trips TickThread.ensureTickThread if we're not on the player's region. Hopping via
-    // runAtEntity guarantees we are. If called from the player's own region the hop runs inline.
     public CompletableFuture<Optional<LivingEntity>> getEntity(Player player, int range) {
         CompletableFuture<Optional<LivingEntity>> future = new CompletableFuture<>();
 
