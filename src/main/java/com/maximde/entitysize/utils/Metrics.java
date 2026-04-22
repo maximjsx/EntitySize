@@ -14,6 +14,8 @@
  */
 package com.maximde.entitysize.utils;
 
+import com.maximde.entitysize.EntitySize;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -101,7 +103,7 @@ public class Metrics {
                         enabled,
                         this::appendPlatformData,
                         this::appendServiceData,
-                        submitDataTask -> Bukkit.getScheduler().runTask(plugin, submitDataTask),
+                        submitDataTask -> EntitySize.scheduler().runNextTick(task -> submitDataTask.run()),
                         plugin::isEnabled,
                         (message, error) -> this.plugin.getLogger().log(Level.WARNING, message, error),
                         (message) -> this.plugin.getLogger().log(Level.INFO, message),
@@ -832,8 +834,8 @@ public class Metrics {
         /**
          * Escapes the given string like stated in https://www.ietf.org/rfc/rfc4627.txt.
          *
-         * <p>This method escapes only the necessary characters '"', '\'. and '\u0000' - '\u001F'.
-         * Compact escapes are not used (e.g., '\n' is escaped as "\u000a" and not as "\n").
+         * <p>This method escapes only the necessary characters '"', '\\'. and '\\u0000' - '\\u001F'.
+         * Compact escapes are not used (e.g., '\\n' is escaped as "\\u000a" and not as "\\n").
          *
          * @param value The value to escape.
          * @return The escaped value.

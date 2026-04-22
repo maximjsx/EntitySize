@@ -6,7 +6,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
-
 @Getter
 public class Config {
 
@@ -96,7 +95,7 @@ public class Config {
     }
 
     private void setDefault(String path, Object value) {
-        if(!cfg.isSet(path)) setValue(path, value);
+        if (!cfg.isSet(path)) setValue(path, value);
     }
 
     public void setValue(String path, Object value) {
@@ -108,6 +107,4 @@ public class Config {
     public Object getValue(String path) {
         return this.cfg.get(path);
     }
-
 }
-

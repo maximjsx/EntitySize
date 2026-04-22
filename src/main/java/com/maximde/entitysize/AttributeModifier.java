@@ -20,21 +20,29 @@ public class AttributeModifier {
     }
 
     public void apply(LivingEntity entity, double scale) {
-        if (!enabled || entity.getAttribute(attribute) == null) return;
+        if (!enabled) return;
 
         double finalScale = reverted ? -scale : scale;
         double value = calculateValue(defaultValue, maxValue, finalScale * multiplier);
-        entity.getAttribute(attribute).setBaseValue(value);
+
+        EntitySize.scheduler().runAtEntity(entity, task -> {
+            var attr = entity.getAttribute(attribute);
+            if (attr == null) return;
+            attr.setBaseValue(value);
+        });
     }
 
     public void reset(LivingEntity entity) {
-        if (entity.getAttribute(attribute) != null) {
-            entity.getAttribute(attribute).setBaseValue(defaultValue);
-        }
+        EntitySize.scheduler().runAtEntity(entity, task -> {
+            var attr = entity.getAttribute(attribute);
+            if (attr != null) {
+                attr.setBaseValue(defaultValue);
+            }
+        });
     }
 
     private double calculateValue(double defaultValue, double maxValue, double multiplier) {
         double value = defaultValue * multiplier;
-        return Math.max(Math.min(value, maxValue), 0.01);
+        return Math.clamp(value, 0.01, maxValue);
     }
 }
