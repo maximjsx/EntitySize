@@ -4,6 +4,7 @@ main: com.maximde.entitysize.EntitySize
 author: MaximDe
 description: Change the size of an entity
 api-version: '1.20'
+folia-supported: true
 
 commands:
   entitysize:
@@ -66,4 +67,3 @@ permissions:
     description: Allows the player to use /entitysize add
     default: op
     op: true
-

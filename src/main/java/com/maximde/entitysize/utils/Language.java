@@ -25,7 +25,6 @@ public class Language {
         loadLanguages();
     }
 
-
     private void loadLanguages() {
         File langFolder = new File(plugin.getDataFolder(), "lang");
         if (!langFolder.exists()) {

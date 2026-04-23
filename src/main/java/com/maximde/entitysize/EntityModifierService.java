@@ -11,6 +11,7 @@ import org.bukkit.util.Vector;
 import java.util.Optional;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
 @RequiredArgsConstructor
@@ -18,17 +19,19 @@ public class EntityModifierService {
     private final EntitySize plugin;
 
     public void setSize(LivingEntity entity, double newScale) {
-        var currentScale = Objects.requireNonNull(
-                entity.getAttribute(Attribute.GENERIC_SCALE)).getBaseValue();
-        if(currentScale == newScale) return;
+        EntitySize.scheduler().runAtEntity(entity, task -> {
+            var currentScale = Objects.requireNonNull(
+                    entity.getAttribute(Attribute.GENERIC_SCALE)).getBaseValue();
+            if (currentScale == newScale) return;
 
-        if(plugin.getConfiguration().isTransition()) {
-            applyTransition(entity, currentScale, newScale);
-        } else {
-            applyDirectScale(entity, newScale);
-        }
+            if (plugin.getConfiguration().isTransition()) {
+                applyTransition(entity, currentScale, newScale);
+            } else {
+                applyDirectScale(entity, newScale);
+            }
 
-        applyAttributeModifiers(entity, newScale);
+            applyAttributeModifiers(entity, newScale);
+        });
     }
 
     private void applyTransition(LivingEntity entity, double currentScale, double newScale) {
@@ -38,9 +41,9 @@ public class EntityModifierService {
 
         AtomicReference<Double> scale = new AtomicReference<>(currentScale);
 
-        plugin.getServer().getScheduler().runTaskTimer(plugin, task -> {
+        EntitySize.scheduler().runAtEntityTimer(entity, task -> {
             scale.updateAndGet(v -> bigger ? v + stepSize : v - stepSize);
-            if(scale.get() == currentScale) return;
+            if (scale.get() == currentScale) return;
 
             if ((bigger && scale.get() >= newScale) ||
                     (!bigger && scale.get() <= newScale)) {
@@ -49,12 +52,14 @@ public class EntityModifierService {
 
             Objects.requireNonNull(entity.getAttribute(Attribute.GENERIC_SCALE))
                     .setBaseValue(scale.get());
-        }, 0, 1);
+        }, 1L, 1L);
     }
 
     private void applyDirectScale(LivingEntity entity, double newScale) {
-        Objects.requireNonNull(entity.getAttribute(Attribute.GENERIC_SCALE))
-                .setBaseValue(newScale);
+        EntitySize.scheduler().runAtEntity(entity, task ->
+              Objects.requireNonNull(entity.getAttribute(Attribute.GENERIC_SCALE))
+                .setBaseValue(newScale)
+        );
     }
 
     private void applyAttributeModifiers(LivingEntity entity, double newScale) {
@@ -119,11 +124,11 @@ public class EntityModifierService {
     }
 
     public double getSize(LivingEntity livingEntity) {
-        return livingEntity.getAttribute(Attribute.GENERIC_SCALE).getBaseValue();
+        return Objects.requireNonNull(livingEntity.getAttribute(Attribute.GENERIC_SCALE)).getBaseValue();
     }
 
     public void resetSize(Player player) {
-        List.of(
+        EntitySize.scheduler().runAtEntity(player, task -> List.of(
                 new AttributeModifier(Attribute.GENERIC_SCALE, 1.0D),
                 new AttributeModifier(Attribute.GENERIC_JUMP_STRENGTH, 0.42D),
                 new AttributeModifier(Attribute.PLAYER_BLOCK_INTERACTION_RANGE, 4.5D),
@@ -131,27 +136,37 @@ public class EntityModifierService {
                 new AttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, 0.1D),
                 new AttributeModifier(Attribute.GENERIC_STEP_HEIGHT, 0.6D),
                 new AttributeModifier(Attribute.GENERIC_SAFE_FALL_DISTANCE, 3.0D)
-        ).forEach(modifier -> modifier.reset(player));
+        ).forEach(modifier -> modifier.reset(player)));
     }
 
-    public Optional<LivingEntity> getEntity(Player player, int range) {
-        Vector playerLookDir = player.getEyeLocation().getDirection();
-        Vector playerEyeLocation = player.getEyeLocation().toVector();
+    public CompletableFuture<Optional<LivingEntity>> getEntity(Player player, int range) {
+        CompletableFuture<Optional<LivingEntity>> future = new CompletableFuture<>();
 
-        return player.getNearbyEntities(range, range, range).stream()
-                .filter(e -> player.hasLineOfSight(e) && e instanceof LivingEntity)
-                .map(e -> (LivingEntity) e)
-                .min((e1, e2) -> {
-                    Vector v1 = e1.getLocation().toVector().subtract(playerEyeLocation);
-                    Vector v2 = e2.getLocation().toVector().subtract(playerEyeLocation);
-                    return Double.compare(
-                            playerLookDir.angle(v1),
-                            playerLookDir.angle(v2)
-                    );
-                })
-                .filter(e -> playerLookDir.angle(
-                        e.getLocation().toVector().subtract(playerEyeLocation)) < 0.4f);
+        EntitySize.scheduler().runAtEntity(player, task -> {
+            try {
+                Vector playerLookDir = player.getEyeLocation().getDirection();
+                Vector playerEyeLocation = player.getEyeLocation().toVector();
+
+                Optional<LivingEntity> result = player.getNearbyEntities(range, range, range).stream()
+                        .filter(e -> player.hasLineOfSight(e) && e instanceof LivingEntity)
+                        .map(e -> (LivingEntity) e)
+                        .min((e1, e2) -> {
+                            Vector v1 = e1.getLocation().toVector().subtract(playerEyeLocation);
+                            Vector v2 = e2.getLocation().toVector().subtract(playerEyeLocation);
+                            return Double.compare(
+                                    playerLookDir.angle(v1),
+                                    playerLookDir.angle(v2)
+                            );
+                        })
+                        .filter(e -> playerLookDir.angle(
+                                e.getLocation().toVector().subtract(playerEyeLocation)) < 0.4f);
+
+                future.complete(result);
+            } catch (Throwable t) {
+                future.completeExceptionally(t);
+            }
+        });
+
+        return future;
     }
-
-
 }
