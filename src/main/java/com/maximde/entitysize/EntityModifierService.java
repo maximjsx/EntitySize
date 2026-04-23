@@ -52,7 +52,7 @@ public class EntityModifierService {
 
             Objects.requireNonNull(entity.getAttribute(Attribute.GENERIC_SCALE))
                     .setBaseValue(scale.get());
-        }, 0L, 1L);
+        }, 1L, 1L);
     }
 
     private void applyDirectScale(LivingEntity entity, double newScale) {
